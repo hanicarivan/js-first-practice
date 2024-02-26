@@ -459,7 +459,7 @@ let numbers = [1,2,3,4,5];
 numbers.forEach(double);
 numbers.forEach(triple);
 numbers.forEach(square);
-numbers.forEach(display);
+numbers.forEach(visibility);
 function double(element,index,array){
     array[index] = element * 2;
 }
@@ -469,16 +469,16 @@ function triple(element,index,array){
 function square(element,index,array){
     array[index] = element * element;
 }
-function display(element){
+function visibility(element){
     console.log(element);
 }
 let fruits = ["apple", "orange", "banana", "coconut"];
 fruits.forEach(capitalize);
-fruits.forEach(display);
+fruits.forEach(visibility);
 function capitalize(element, index, array){
     array[index] = element.charAt(0).toUpperCase() + element.slice(1);
 }
-function display(element){
+function visibility(element){
     console.log(element);
 }
 
@@ -1151,4 +1151,133 @@ element.style.backgroundColor = "yellow";
 const foods = document.querySelectorAll("li");
 foods.forEach(food => {
     food.style.backgroundColor = "yellow";
+});
+
+
+//DOM navigation
+const element = document.getElementById("desserts");
+const firstChild = element.firstElementChild;
+firstChild.style.backgroundColor = "yellow";
+const ulElements = document.querySelectorAll("ul");
+ulElements.forEach(ulElement => {
+    const firstChild = ulElement.firstElementChild;
+    firstChild.style.backgroundColor = "yellow";
+});
+const ulElements = document.querySelectorAll("ul");
+ulElements.forEach(ulElement => {
+    const lastChild = ulElement.lastElementChild;
+    lastChild.style.backgroundColor = "yellow";
+});
+const element = document.getElementById("fruits");
+const elementSibling = element.nextElementSibling;
+elementSibling.style.backgroundColor = "yellow";
+const element = document.getElementById("orange");
+const previousSibling = element.previousElementSibling;
+previousSibling.style.backgroundColor = "yellow";
+const element = document.getElementById("apple");
+const parent = element.parentElement;
+parent.style.backgroundColor = "yellow";
+const element = document.getElementById("vegetables");
+const children = element.children;
+Array.from(children).forEach(child => {
+    child.style.backgroundColor = "yellow";
+});
+children[1].style.backgroundColor = "yellow";
+
+
+//Add and change HTML
+//STEP 1 CREATE THE ELEMENT
+const newH1 = document.createElement("h1");
+//STEP 2 ADD ATTRIBUTES/PROPERTIES
+newH1.textContent = "I like pizza!";
+newH1.id = "myH1";
+newH1.style.color = "tomato";
+newH1.style.textAlign = "center";
+//STEP 3 APPEND ELEMENT TO DOM
+//document.body.append(newH1);
+document.getElementById("box2").append(newH1);
+//document.getElementById("box2").prepend(newH1);
+//const box2 = document.getElementById("box2");
+//document.body.insertBefore(newH1, box2);
+//const boxes = document.querySelectorAll(".box");
+//document.body.insertBefore(newH1, boxes[1]);
+//REMOVE HTML ELEMENT
+document.getElementById("box2").removeChild(newH1);
+
+const newListItem = document.createElement("li");
+const orange = document.getElementById("orange");
+newListItem.textContent = "coconut";
+newListItem.id = "coconut";
+newListItem.style.fontWeight = "bold";
+newListItem.style.backgroundColor = "lightgreen";
+//document.getElementById("fruits").insertBefore(newListItem, orange);
+const listItems = document.querySelectorAll("#fruits li");
+document.getElementById("fruits").insertBefore(newListItem, listItems[0]);
+
+
+//eventListeners - mouse
+const myBox = document.getElementById("myBox");
+const myBtn = document.getElementById("myBtn");
+myBtn.addEventListener("click", event => {
+    myBox.style.backgroundColor = "tomato";
+    myBox.textContent = "Ouch!";
+});
+myBtn.addEventListener("mouseover", event => {
+    myBox.style.backgroundColor = "yellow";
+    myBox.textContent = "Don't do it";
+});
+myBtn.addEventListener("mouseout", event => {
+    myBox.style.backgroundColor = "lightgreen";
+    myBox.textContent = "Click me";
+});
+
+
+//eventListener - keyboard
+const myBox = document.getElementById("myBox");
+document.addEventListener("keydown", event => {
+    myBox.textContent = "0";
+    myBox.style.backgroundColor = "tomato";
+});
+document.addEventListener("keyup", event => {
+    myBox.textContent = "O";
+    myBox.style.backgroundColor = "lightblue";
+});
+const moveAmount = 10;
+let x = 0;
+let y = 0;
+document.addEventListener("keydown", event => {
+    event.preventDefault();
+    if(event.key.startsWith("Arrow")){
+        switch(event.key){
+            case "ArrowUp":
+                y -= moveAmount;
+                break;
+            case "ArrowDown":
+                y += moveAmount;
+                break;
+            case "ArrowLeft":
+                x -= moveAmount;
+                break;
+            case "ArrowRight":
+                x += moveAmount;
+                break;
+        }
+        myBox.style.top = `${y}px`;
+        myBox.style.left = `${x}px`;
+    }
+});
+
+
+//hide/show HTML
+const myBtn = document.getElementById("myBtn");
+const myImg = document.getElementById("myImg");
+document.addEventListener("click", event => {
+    if(myImg.style.visibility === "hidden"){
+        myImg.style.visibility = "visible";
+        myBtn.textContent = "Hide";
+    }
+    else{
+        myImg.style.visibility = "hidden";
+        myBtn.textContent = "Show";
+    }
 });*/
