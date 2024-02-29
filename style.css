@@ -21,6 +21,33 @@ body{
     text-align: center;
     position: relative;
 }
+.myBtns{
+    font-size: 4rem;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    color: white;
+}
+#myH1{
+    font-size: 5rem;
+}
 #myBtn{
-    font-size: 3rem;
+    font-size: 4rem;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+.enabled{
+    background-color: hsl(205, 100%, 60%);
+    color: white;
+}
+.hover{
+    box-shadow: 0 0 10px hsl(0, 0%, 20%);
+    font-weight: bold;
+}
+.disabled{
+    background-color: hsl(0, 0%, 60%);
+    color: hsl(0, 0%, 80%);
 }

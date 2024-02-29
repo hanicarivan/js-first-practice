@@ -1280,4 +1280,254 @@ document.addEventListener("click", event => {
         myImg.style.visibility = "hidden";
         myBtn.textContent = "Show";
     }
-});*/
+});
+
+
+//nodelist
+let buttons = document.querySelectorAll(".myBtns");
+console.log(buttons);
+const newButton = document.createElement("button");
+newButton.textContent = "Button 5";
+newButton.classList = "myBtns";
+document.body.appendChild(newButton);
+buttons = document.querySelectorAll(".myBtns");
+buttons.forEach(button => {
+    button.style.backgroundColor = "lightgreen";
+    button.textContent += ".1";
+});
+buttons.forEach(button => {
+    button.addEventListener("click", event => {
+        event.target.style.backgroundColor = "tomato";
+    });
+});
+buttons.forEach(button => {
+    button.addEventListener("mouseover", event => {
+        event.target.style.backgroundColor = "lightblue";
+    });
+});
+buttons.forEach(button => {
+    button.addEventListener("mouseout", event => {
+        event.target.style.backgroundColor = "lightgreen";
+    });
+});
+buttons.forEach(button => {
+    button.addEventListener("click", event => {
+        event.target.remove();
+        buttons = document.querySelectorAll(".myBtns");
+        console.log(buttons);
+    });
+});
+
+
+//classlist
+const myButton = document.getElementById("myBtn");
+const myH1 = document.getElementById("myH1");
+myH1.classList.add("enabled");
+myButton.addEventListener("mouseover", event => {
+    myButton.classList.toggle("hover");
+});
+myButton.addEventListener("mouseout", event => {
+    myButton.classList.toggle("hover");
+});
+myButton.classList.add("enabled");
+myButton.addEventListener("click", event => {
+    if(event.target.classList.contains("disabled")){
+        event.target.textContent += " OFF";
+    }
+    else{
+        event.target.classList.replace("enabled", "disabled");
+    }
+});
+myH1.addEventListener("click", event => {
+    if(event.target.classList.contains("disabled")){
+        event.target.textContent += " OFF";
+    }
+    else{
+        event.target.classList.replace("enabled", "disabled");
+    }
+});
+let buttons = document.querySelectorAll(".myBtns");
+buttons.forEach(button => {
+    button.classList.add("enabled");
+});
+buttons.forEach(button => {
+    button.addEventListener("mouseover", event => {
+        button.classList.toggle("hover");
+    });
+    button.addEventListener("mouseout", event => {
+        button.classList.toggle("hover");
+    });
+});
+buttons.forEach(button => {
+    button.addEventListener("click", event => {
+        if(event.target.classList.contains("disabled")){
+            event.target.textContent += " OFF";
+        }
+        else{
+            event.target.classList.replace("enabled", "disabled");
+        }
+    });
+});
+
+
+//callback hell
+function task1(callback){
+    setTimeout(() => {
+        console.log("Task 1 complete");
+        callback();
+    }, 2000);
+}
+function task2(callback){
+    setTimeout(() => {
+        console.log("Task 2 complete");
+        callback();
+    }, 1000);
+}
+function task3(callback){
+    setTimeout(() => {
+        console.log("Task 3 complete");
+        callback();
+    }, 3000);
+}
+function task4(callback){
+    setTimeout(() => {
+        console.log("Task 4 complete");
+        callback();
+    }, 1500);
+}
+task1(()=>{
+    task2(()=>{
+        task3(()=>{
+            task4(()=>console.log("All tasks complete!"));
+        });
+    });
+});
+
+
+//promises
+function walkDog(){
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const dogWalked = true;
+            if(dogWalked){
+                resolve("You walk the dog");
+            }
+            else{
+                reject("You DIDN'T walk the dog!");
+            }
+        }, 1500);
+    });
+}
+function cleanKitcken(callback){
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const kitchenCleaned = false;
+            if(kitchenCleaned){
+                resolve("You clean the kitchen");
+            }
+            else{
+                reject("You DIDN'T clean the kitchen!");
+            }
+        }, 2500);
+    });
+}
+function takeOutTrash(){
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const trashTakenOut = true;
+            if(trashTakenOut){
+                resolve("You take out the trash");
+            }
+            else{
+                reject("You DIDN'T take out the trash!");
+            }
+        }, 500);
+    });
+}
+//walkDog(() => {
+//    cleanKitcken(() => {
+//        takeOutTrash(() => console.log("You finished all the chores!"));
+//    });
+//});
+walkDog().then(value => {console.log(value); return cleanKitcken()})
+         .then(value => {console.log(value); return takeOutTrash()})
+         .then(value => {console.log(value); console.log("Finished!")})
+         .catch(error => console.error(error));
+
+
+//async/await
+function walkDog(){
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const dogWalked = false;
+            if(dogWalked){
+                resolve("You walk the dog");
+            }
+            else{
+                reject("You DIDN'T walk the dog!");
+            }
+        }, 1500);
+    });
+}
+function cleanKitcken(callback){
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const kitchenCleaned = true;
+            if(kitchenCleaned){
+                resolve("You clean the kitchen");
+            }
+            else{
+                reject("You DIDN'T clean the kitchen!");
+            }
+        }, 2500);
+    });
+}
+function takeOutTrash(){
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const trashTakenOut = true;
+            if(trashTakenOut){
+                resolve("You take out the trash");
+            }
+            else{
+                reject("You DIDN'T take out the trash!");
+            }
+        }, 500);
+    });
+}
+async function doChores(){
+    try{
+        const walkDogResult = await walkDog();
+        console.log(walkDogResult);
+        const cleanKitckenResult = await cleanKitcken();
+        console.log(cleanKitckenResult);
+        const takeOutTrashResult = await takeOutTrash();
+        console.log(takeOutTrashResult);
+        console.log("Finished!");
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+doChores();
+
+
+//JSON
+const names = ["Spongebob", "Patrick", "Squidward", "Sandy"];
+const jsonString = JSON.stringify(names);
+const person = {"name": "Spongebob","age": 30,"isEmployed": true,"hobbies": ["Jellyfishing", "Karate", "Cooking"]};
+const jsonString2 = JSON.stringify(person);
+const people = [{"name": "Spongebob","age": 30,"isEmployed": true},{"name": "Patrick","age": 34,"isEmployed": false},{"name": "Squidward","age": 50,"isEmployed": true},{"name": "Sandy","age": 19,"isEmployed": true}];
+const jsonString3 = JSON.stringify(people);
+console.log(jsonString3);
+const jsonNames = `["Spongebob", "Patrick", "Squidward", "Sandy"]`;
+const jsonPerson = `{"name": "Spongebob","age": 30,"isEmployed": true,"hobbies": ["Jellyfishing", "Karate", "Cooking"]}`;
+const jsonPeople = `[{"name": "Spongebob","age": 30,"isEmployed": true},{"name": "Patrick","age": 34,"isEmployed": false},{"name": "Squidward","age": 50,"isEmployed": true},{"name": "Sandy","age": 19,"isEmployed": true}]`;
+const parsedData = JSON.parse(jsonNames);
+console.log(parsedData);
+fetch("jsonfiles/names.json")
+    .then(response => response.json())
+    .then(value => console.log(JSON.stringify(value)));
+fetch("jsonfiles/people.json")
+    .then(response => response.json())
+    .then(values => values.forEach(value => console.log(value.isEmployed)));*/
